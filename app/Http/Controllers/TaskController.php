@@ -19,7 +19,6 @@ class TaskController extends Controller
             'title' => 'required|max:255',
         ]);
 
-        // Check for duplicates
         $exists = Task::where('title', $request->title)->exists();
         if ($exists) {
             return response()->json([

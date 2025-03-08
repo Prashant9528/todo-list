@@ -30,7 +30,6 @@
                 </div>
                 
                 <div id="taskList">
-                    <!-- Tasks will be loaded here -->
                 </div>
             </div>
         </div>
@@ -39,17 +38,14 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function() {
-            // Set up CSRF token for AJAX requests
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
 
-            // Load tasks on page load
             loadTasks();
 
-            // Add task on button click or enter key
             $('#addTaskBtn').click(function() {
                 addTask();
             });
@@ -60,12 +56,10 @@
                 }
             });
 
-            // Toggle show all tasks
             $('#showAllTasks').change(function() {
                 loadTasks();
             });
 
-            // Function to load tasks
             function loadTasks() {
                 let url = "{{url('/tasks/active')}}";
                 if ($('#showAllTasks').is(':checked')) {
@@ -84,7 +78,6 @@
                 });
             }
 
-            // Function to add a new task
             function addTask() {
                 const title = $('#taskInput').val().trim();
                 
@@ -109,7 +102,6 @@
                 });
             }
 
-            // Function to append a task to the list
             function appendTaskToList(task) {
                 const taskHtml = `
                     <div class="row mb-2 task-item" data-id="${task.id}">
@@ -133,7 +125,6 @@
                 $('#taskList').append(taskHtml);
             }
 
-            // Mark task as completed
             $(document).on('change', '.task-checkbox', function() {
                 const taskId = $(this).closest('.task-item').data('id');
                 const isCompleted = $(this).is(':checked');
@@ -161,7 +152,6 @@
                 });
             });
 
-            // Delete task
             $(document).on('click', '.delete-task', function() {
                 const taskId = $(this).closest('.task-item').data('id');
                 const taskTitle = $(this).closest('.task-item').find('.task-title').text().trim();
