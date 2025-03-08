@@ -36,6 +36,8 @@
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+
     <script>
         $(document).ready(function() {
             $.ajaxSetup({
@@ -103,6 +105,7 @@
             }
 
             function appendTaskToList(task) {
+                const timeAgo = moment(task.created_at).fromNow();
                 const taskHtml = `
                     <div class="row mb-2 task-item" data-id="${task.id}">
                         <div class="col-auto">
@@ -113,7 +116,7 @@
                             ${task.title}
                         </div>
                         <div class="col-auto">
-                            <span class="text-muted">a few seconds ago</span>
+                            <span class="text-muted">${timeAgo}</span>
                         </div>
                         <div class="col-auto">
                             <button class="btn btn-sm btn-danger delete-task">
